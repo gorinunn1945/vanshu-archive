@@ -1,0 +1,438 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#090d19"><title>VANSHU ARCHIVE</title>
+<style>
+:root{--bg:#090d19;--p:#141d2d;--line:#344052;--gold:#d8b45c;--ink:#e8e7e1;--muted:#a2adbd}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% 0%,#1a2744,transparent 42%),var(--bg);color:var(--ink);font:15px/1.6 -apple-system,BlinkMacSystemFont,"Yu Gothic",sans-serif}.wrap{max-width:1100px;margin:auto;padding:18px}.top{border-bottom:1px solid var(--line);padding:12px 0 18px}.k{color:var(--gold);font-size:11px;letter-spacing:.18em;font-weight:bold}.title{font-size:clamp(27px,5vw,42px);font-weight:900;letter-spacing:.06em}.muted{color:var(--muted)}button,input,textarea,select{font:inherit}button{cursor:pointer;border:1px solid #75633a;background:#1a2231;color:#f0d994;padding:8px 12px;border-radius:6px}.primary{background:var(--gold);color:#17130a}.danger{color:#ffb7be;border-color:#8d3947}.actions,.tabs,.filters{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.tab{border-color:var(--line);color:var(--muted)}.tab.active{border-color:var(--gold);color:var(--gold);background:#292b2b}.panel{background:linear-gradient(145deg,#151e30,#0c111d);border:1px solid var(--line);border-radius:11px;padding:17px;margin:12px 0}.hero{display:grid;grid-template-columns:110px 1fr;gap:18px;align-items:center}.sigil{border:1px solid #857144;border-radius:50%;height:110px;display:grid;place-items:center;font-size:45px;color:var(--gold);background:#101a2e}.hero h1{margin:3px 0;font-size:28px}.tag,.status{display:inline-block;border:1px solid #48536a;padding:2px 7px;border-radius:4px;font-size:11px;margin:3px 3px 3px 0}.confirmed{color:#a4e2c5;background:#17372e}.draft{color:#f0d994;background:#3a2e16}.unknown{color:#c5c9d3;background:#2c3040}.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.card{border:1px solid var(--line);border-radius:9px;background:#101726;overflow:hidden;display:flex;flex-direction:column}.stripe{height:6px;background:linear-gradient(90deg,var(--gold),#26385b,var(--gold))}.cb{padding:13px;display:flex;flex-direction:column;gap:8px;flex:1}.cb h3{font-size:16px;margin:0;line-height:1.4}.desc{color:var(--muted);font-size:12px;flex:1}.row{display:flex;justify-content:space-between;gap:10px;align-items:center}.hidden{display:none!important}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.field{background:#0c1322;border:1px solid #29344a;border-radius:7px;padding:11px;white-space:pre-wrap}.field label{display:block;color:var(--gold);font-size:11px;margin-bottom:5px}.filters input,.filters select,.formgrid input,.formgrid textarea,.formgrid select{background:#090f1c;color:var(--ink);border:1px solid var(--line);padding:9px;border-radius:6px;width:100%}.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.formrow{display:flex;flex-direction:column;gap:5px}.formrow label{font-size:12px;color:#f0d994}.full{grid-column:1/-1}textarea{min-height:90px;resize:vertical}.notice{border-left:3px solid var(--gold);padding:10px;background:#d8b45c0c;color:#c5ccda;font-size:12px}dialog{width:min(760px,calc(100% - 20px));max-height:90vh;overflow:auto;background:#111827;color:var(--ink);border:1px solid #7c6b43;border-radius:12px;padding:18px}dialog::backdrop{background:#000b}.portrait{width:100%;max-height:520px;object-fit:contain;display:block;border-radius:8px;background:#080d17;border:1px solid #344052}.portraitbox{display:grid;place-items:center;min-height:180px;background:#0a1120;border:1px dashed #46536b;border-radius:8px;color:#8290a5;padding:12px;text-align:center}.thumb{width:100%;height:150px;object-fit:contain;background:#080d17;border-radius:6px;border:1px solid #344052}.imgtools{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}.foot{border-top:1px solid var(--line);margin-top:22px;padding:14px 0;color:#7f8b9e;font-size:11px}@media(max-width:720px){.wrap{padding:12px}.hero{grid-template-columns:72px 1fr}.sigil{height:72px;font-size:30px}.hero h1{font-size:22px}.cards{grid-template-columns:1fr}.grid,.formgrid{grid-template-columns:1fr}.full{grid-column:auto}}
+
+.identity-battle{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);gap:18px;align-items:start}
+.identity-art{min-width:0}.identity-art .portrait{width:100%;height:auto;max-height:540px;object-fit:contain;object-position:center top;border-radius:8px;background:#08070b;display:block}
+.identity-art .portraitbox{min-height:300px;display:flex;align-items:center;justify-content:center}
+.resist-panel{margin-top:12px;padding:12px;background:#100d12;border:1px solid #554333;border-radius:8px}
+.resist-panel h3{margin:0 0 10px;color:#d9b878;font-size:14px}
+.resist-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.resist-item{padding:9px 5px;text-align:center;background:#1a1518;border:1px solid #40332c;border-radius:6px}
+.resist-item b{display:block;font-size:12px;color:#c5b7a1;margin-bottom:5px}
+.resist-value{font-size:13px;font-weight:700}.resist-value.weak{color:#ff7777}.resist-value.normal{color:#ddd0b5}.resist-value.resist{color:#79c9bd}.resist-value.unknown{color:#999}
+.skill-view{border:1px solid #4a3829;border-radius:8px;background:#0b090c;overflow:hidden}
+.skill-tabs{display:flex;flex-wrap:wrap;gap:3px;padding:7px;background:#171116;border-bottom:1px solid #4a3829}.skill-tab{min-width:64px;flex:1 0 auto}
+.skill-tab{padding:9px 2px;font-size:12px;background:#211a1b;color:#c5b8a6;border:1px solid #554332;border-radius:4px}
+.skill-tab.active{color:#fff1c5;background:#6d3518;border-color:#ffae43;box-shadow:0 0 8px #d57b2c55}
+.skill-content{padding:16px;min-height:280px;white-space:pre-wrap;line-height:1.7;overflow-wrap:anywhere}
+.skill-content h3{margin:0;color:#ffc36a;font-size:18px}.skill-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}.skill-swap{flex:0 0 auto;padding:7px 10px;background:#352719;color:#ffdb91;border:1px solid #b77a32;border-radius:6px;font-size:12px}.skill-swap:hover{background:#53361e}.skill-content .empty{color:#8e8585}
+.resist-edit{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.resist-edit label{display:grid;gap:6px}.resist-edit select{width:100%;min-width:0}
+@media(max-width:700px){.identity-battle{grid-template-columns:1fr}.identity-art .portrait{max-height:440px}.skill-content{min-height:180px}.resist-list{gap:4px}.resist-item{padding:8px 2px}}
+
+.skill-tab-group{display:flex;flex:1 0 auto;min-width:72px;gap:2px}
+.skill-tab-group .skill-tab{flex:1 1 auto}
+.skill-variant-toggle{border:1px solid #77512d;border-radius:4px;background:#292019;color:#f4c27a;min-width:100px;padding:7px 9px;font-size:11px;white-space:nowrap;cursor:pointer}
+.skill-variant-toggle:hover,.skill-variant-toggle.active{background:#69401e;border-color:#ffb34b}.skill-tab-group{align-items:stretch;flex-wrap:wrap}.skill-tab-group .skill-tab{min-width:55px}
+.variant-tabs{display:flex;flex-wrap:wrap;gap:5px;padding:8px;background:#100d10;border-bottom:1px solid #4a3829}
+.variant-tab{padding:7px 10px;border:1px solid #65462c;border-radius:4px;background:#211a1b;color:#d8c6ae;cursor:pointer}
+.variant-tab.active{background:#6d3518;color:#fff1c5;border-color:#ffae43}
+
+.skill-editor{display:grid;gap:12px;margin-top:10px}
+.skill-edit-card{border:1px solid var(--line,#333);border-radius:12px;padding:12px;background:rgba(255,255,255,.025)}
+.skill-edit-head{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.skill-edit-head strong{font-size:1rem}
+.skill-edit-fields{display:grid;gap:8px}
+.skill-edit-fields input,.skill-edit-fields textarea{width:100%;box-sizing:border-box}
+.skill-edit-fields textarea{min-height:90px;resize:vertical}
+.skill-edit-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.skill-edit-actions button{font-size:.88rem}
+.skill-branch{margin:10px 0 0 12px;padding-left:10px;border-left:2px solid var(--line,#444)}
+</style><style>
+.skill-meta-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:10px 0;padding:10px;border:1px solid var(--line,#39405c);border-radius:10px}
+.skill-meta-fields label,.area-editor-fields label{display:flex;flex-direction:column;gap:5px;font-size:.9rem}
+.area-editor{grid-column:1/-1;padding-top:8px;border-top:1px solid var(--line,#39405c)}
+.area-editor-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.area-editor-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}
+.area-editor-fields[hidden]{display:none}
+.skill-attr-badges{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 10px}
+.skill-attr-badges span{display:inline-block;border:1px solid var(--line,#39405c);border-radius:999px;padding:3px 9px;font-size:.85rem}
+.identity-keywords{display:flex;gap:6px;flex-wrap:wrap;margin:7px 0 12px}.identity-keyword{display:inline-flex;align-items:center;border:1px solid #8a6b38;background:#292218;color:#f0d994;border-radius:999px;padding:3px 10px;font-size:12px}.keyword-editor{border:1px solid var(--line);border-radius:8px;padding:10px;background:#0b111e}.keyword-list{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}.keyword-chip{display:inline-flex;align-items:center;gap:6px;border:1px solid #8a6b38;background:#292218;color:#f0d994;border-radius:999px;padding:3px 7px 3px 10px;font-size:12px}.keyword-chip button{padding:0 4px;border:0;background:transparent;color:#ffb7be;font-size:15px;line-height:1.2}.keyword-add-row{display:flex;gap:8px}.keyword-add-row input{flex:1;min-width:0}
+
+@media(max-width:560px){.skill-meta-fields,.area-editor-fields{grid-template-columns:1fr}.area-editor{grid-column:auto}}
+</style>
+</head><body><div class="wrap">
+<header class="top"><div class="k">LIMBUS TRPG · PERSONAL ARCHIVE</div><div class="title">VANSHU ARCHIVE</div><div class="muted">同期化人格・人物設定データベース</div><div class="actions"><button id="export">データを書き出す</button><button id="import">データを読み込む</button><button class="primary" id="add">＋ 人格を追加</button><input id="file" type="file" accept=".json,application/json" hidden></div><div class="actions"><span id="cloudStatus" class="tag">クラウド接続確認中</span><button id="loginOpen">管理者ログイン</button><button id="logout" class="hidden">ログアウト</button></div><div id="loginPanel" class="panel hidden"><form id="loginForm"><div class="formgrid"><div class="formrow"><label>管理者メールアドレス</label><input id="loginEmail" type="email" autocomplete="username" required></div><div class="formrow"><label>パスワード</label><input id="loginPassword" type="password" autocomplete="current-password" required></div></div><div class="actions"><button class="primary" type="submit">ログイン</button><button type="button" id="loginCancel">キャンセル</button></div><p id="loginError" class="muted"></p></form></div></header>
+<nav class="tabs"><button class="tab active" data-view="profile">人物ファイル</button><button class="tab" data-view="identities">同期化人格</button><button class="tab" data-view="notes">資料・メモ</button></nav>
+<section id="profile"><div class="panel hero"><div id="profilePortrait" class="sigil">蛇</div><div><div class="k">PERSONAL FILE / 001</div><h1 id="pname">ヴァンシュ</h1><div id="meta" class="muted"></div><div id="tags"></div><p id="short"></p></div></div><div class="panel"><div class="row"><h2>人物概要</h2><button id="editProfile">プロフィールを編集</button></div><div id="details" class="field"></div></div><div class="panel"><h2>注意事項・未確定点</h2><div id="cautions" class="field"></div></div><div class="notice">確定済み＝明示された設定／未完成案＝検討中の草案／未記入＝情報不足。数値やルール効果を推測で補完しません。</div></section>
+<section id="identities" class="hidden"><div class="row"><h2>同期化人格一覧</h2><button class="primary" id="add2">＋ 人格を追加</button></div><div class="filters"><input id="q" placeholder="名前・所属・キーワードで検索"><select id="sf"><option value="all">すべての状態</option><option value="confirmed">確定済み</option><option value="draft">未完成案</option><option value="unknown">未記入</option></select><select id="af"><option value="all">すべての所属</option></select></div><div id="cards" class="cards"></div></section>
+<section id="detail" class="hidden"><div class="actions"><button id="back">← 一覧へ</button><button id="editIdentity" type="button">人格を編集</button><button class="danger" id="deleteIdentity">削除</button></div><div id="detailBody"></div></section>
+<section id="notes" class="hidden"><div class="row"><h2>資料・制作メモ</h2><button id="addNote">＋ メモを追加</button></div><div id="notesList"></div></section>
+<footer class="foot">VANSHU ARCHIVE · 個人創作資料 · 保存後は上部のクラウド同期状態を確認してください。</footer></div>
+<dialog id="im"><div class="row"><h2 id="imtitle">人格を追加</h2><button type="button" id="imclose">閉じる ✕</button></div><form id="iform"><input id="iid" type="hidden"><div class="formgrid">
+<div class="formrow full"><label>人格名 *</label><input id="iname" required></div><div class="formrow"><label>記録状態</label><select id="istatus"><option value="confirmed">確定済み</option><option value="draft">未完成案</option><option value="unknown">未記入・仮登録</option></select></div><div class="formrow"><label>ランク</label><input id="irank" placeholder="不明なら空欄"></div>
+<div class="formrow"><label>所属</label><input id="iaff" placeholder="例：中指"></div><div class="formrow"><label>同期化元</label><input id="ibase"></div><div class="formrow full"><label>所属キーワード（タグ）</label><div class="keyword-editor"><div id="keywordList" class="keyword-list"></div><div class="keyword-add-row"><input id="keywordInput" placeholder="例：中指／嫉妬／大罪を冠する者"><button type="button" id="addKeyword">＋ 追加</button></div></div><small class="muted">追加したキーワードは人格名の下にタグとして表示されます。</small></div><div class="formrow"><label>役割・コンセプト</label><input id="irole"></div><div class="formrow"><label>HP</label><input id="ihp"></div><div class="formrow"><label>SAN</label><input id="isan"></div><div class="formrow"><label>速度</label><input id="ispeed"></div><div class="formrow full"><label>耐性（各属性を選択）</label><div class="resist-edit">
+<label>斬撃<select id="iresistSlash"><option value="弱点">弱点</option><option value="普通">普通</option><option value="抵抗">抵抗</option></select></label>
+<label>貫通<select id="iresistPierce"><option value="弱点">弱点</option><option value="普通">普通</option><option value="抵抗">抵抗</option></select></label>
+<label>打撃<select id="iresistBlunt"><option value="弱点">弱点</option><option value="普通">普通</option><option value="抵抗">抵抗</option></select></label>
+</div><small class="muted">各属性の耐性を設定できます。</small></div><div class="formrow full"><label>人格の立ち絵・カード画像（端末から選択）</label><input id="iimageFile" type="file" accept="image/*"><div id="iimagePreview"></div><button type="button" id="iimageClear">画像を削除</button><small class="muted">画像は人格データと一緒に保存されます。JSONバックアップにも含まれます。</small></div><div class="formrow full"><label>設定・背景</label><textarea id="isummary"></textarea></div><div class="formrow full"><label>パッシブ</label><textarea id="ipassive" placeholder="パッシブの名称・効果"></textarea></div><div class="formrow full"><label>②パッシブ（任意）</label><textarea id="ipassive2" placeholder="必要な場合のみ記入"></textarea></div><div class="formrow full"><label>戦術・スキル</label>
+<div id="skillEditor" class="skill-editor"></div>
+<div class="actions"><button type="button" id="addTactic">＋ 戦術を追加</button></div>
+<textarea id="iskills" hidden></textarea>
+<small class="muted">各戦術・守備を個別に編集できます。「派生を作成」で、その戦術の派生技を追加できます。戦術追加ボタンで⑤、⑥、⑦……を増やせます。</small></div><div class="formrow full"><label>補足・未確定点</label><textarea id="inotes"></textarea></div></div><div class="actions"><button class="primary" type="submit">保存する</button></div></form></dialog>
+<dialog id="pm"><div class="row"><h2>プロフィール編集</h2><button type="button" id="pmclose">閉じる ✕</button></div><form id="pform"><div class="formgrid"><div class="formrow"><label>名前</label><input id="pn"></div><div class="formrow"><label>年齢</label><input id="pa"></div><div class="formrow"><label>PL</label><input id="ppl"></div><div class="formrow"><label>所属</label><input id="paf"></div><div class="formrow"><label>原初・テーマ</label><input id="po"></div><div class="formrow"><label>イメージカラー</label><input id="pc"></div><div class="formrow full"><label>ヴァンシュの立ち絵・画像（端末から選択）</label><input id="pimageFile" type="file" accept="image/*"><div id="pimagePreview"></div><button type="button" id="pimageClear">画像を削除</button><small class="muted">画像はこのブラウザに保存され、JSON書き出しにも含まれます。大きすぎる画像は縮小してから追加してください。</small></div><div class="formrow full"><label>短い紹介文</label><textarea id="ps"></textarea></div><div class="formrow full"><label>人物概要</label><textarea id="pd"></textarea></div><div class="formrow full"><label>注意事項・未確定点</label><textarea id="px"></textarea></div></div><div class="actions"><button class="primary">保存する</button></div></form></dialog>
+<dialog id="nm"><div class="row"><h2>メモを追加</h2><button type="button" id="nmclose">閉じる ✕</button></div><form id="nform"><div class="formgrid"><div class="formrow full"><label>タイトル</label><input id="nt" required></div><div class="formrow"><label>状態</label><select id="ns"><option value="confirmed">確定済み</option><option value="draft">未完成案</option></select></div><div class="formrow full"><label>内容</label><textarea id="nb" required></textarea></div></div><div class="actions"><button class="primary">追加</button></div></form></dialog>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const $=x=>document.getElementById(x), clone=x=>JSON.parse(JSON.stringify(x));
+const profile0={name:"ヴァンシュ",age:"32",pl:"ごりぬん",aff:"Limbus Company",origin:"UROBOROS",color:"#00053a",image:"",short:"荒事は任せろ。だが、戦うこと自体を好んでいるわけではない。",details:"裏路地出身。幼少期は兄と共に生き延びるため、廃品漁りや逃走、盗みをしていた。戦闘能力は高いが、戦うことそのものを好んでいるわけではなく、他に生き方を知らないため前に出る傾向がある。仲間を優先し、自分を犠牲にしがち。",cautions:"兄を自分が殺したと思っているが、これは記憶錯誤。実際には兄が組織の命令に従ってヴァンシュを傷つけ、兄は生存している。兄が現在組織の長である真相を、ヴァンシュ本人は知らない。元の世界線における兄の組織は『親指』ではない。\n好き：缶コーヒー、珍しい工房武器、ハムパン、仲間。\n苦手：暗闇、裏路地、圧倒的な力や暴力。\n口調：短く荒めだが、下品ではない。例：「……ヴァンシュだ。」「荒事は任せろ」「自らの行いを悔め。」"};
+const identities0=[
+{id:"midfinger",name:"中指長兄[苦悩を及ぼす嫉妬] ヴァンシュの人格",status:"draft",rank:"",aff:"中指 / 大罪を冠する者",base:"中指末弟・末妹の人格（長兄を想定）",role:"嫉妬・家族への執着・報復・歪んだ平等",hp:"",san:"",speed:"",resist:"",summary:"最悪の可能性としてのヴァンシュ。自分だけが家族を失ったと信じ、家族を傷つけた者だけでなく、幸せな家族にまで理由をつけて報復しようとする。『自分が家族を失ったのなら、なぜお前たちは家族を持っていられる？』という歪んだ感情と、『もう家族を失いたくない』という執着に駆られている。",passive:"「嫉妬を冠する者／理不尽の平等」（草案）\n発動条件：嫉妬x・憤怒x 保有（必要数未確定）。ヴァンシュまたは中指の味方が攻撃された時、攻撃者を報復対象に指定し、戦術1-2を一方攻撃として使用（1R1回）。報復対象に命中時、「仕返し帳簿-ヴァンシュ-」を1獲得。\n全戦術を嫉妬属性としても扱う案。嫉妬共鳴が一定以上ならダイス不可破壊化・ダメージ増加（数値未確定）。",skills:"1「蹴っ飛ばす」— 打撃：嫉妬\n1-2「懲罰執行」— 打撃：嫉妬\n2「これで終わると思うなッ！！！」— 打撃：暴食\n3「[執行]ヴェンデッタ・ブロウ」— 打撃：憤怒\n3-2「[執行]ヴェンデッタ・レイジ」—「怨嗟紊乱」時の変化案\n4「俺のマイヘアァを馬鹿にしたか！！！！！」— 打撃：嫉妬\n4-2「報復処刑[ネメシス・カーマ]」— 打撃：嫉妬\n4-3「報復絶倒／怨／嗟／乱／襲」— 打撃：嫉妬",notes:"未完成案。数値、発動条件のx、「怨嗟紊乱」の詳細は要確認。4-3「報復絶倒」は「抱腹絶倒」との語呂合わせ。ボリスをこの人格の元ネタとして扱わない。"},
+{id:"oldg",name:"旧G社 黒蝨の貴族 ヴァンシュの人格",status:"draft",rank:"0希望（未確定）",aff:"旧G社 / UROBOROS",base:"旧G社系の人格（正確なベースは要確認）",role:"失敗作・生物適応実験・タンク／サポーター案",hp:"",san:"",speed:"",resist:"",summary:"廃棄個体のような雰囲気を持つ、複数の生物適応実験を組み合わせた失敗作。暴れ回る怪物性を持ち、UROBOROSを中心に据える構想。",passive:"初期案「ERROR CODE：UROBOROS」など。黒蝨、破裂、HP消費・回復を用いる案があるが、強さを調整中。",skills:"「蠕く節腕」／「廻り喰る罪悪輪」／「断頭されし蛇達の蹂躙」／「終幕：ウロボロス」などの草案。数値・最終仕様は未確定。",notes:"背中にハグロトンボ由来の漆黒の羽、右腕はオケラ風の重厚な甲殻という外見案。バッファー兼サブアタッカー、または盾役を検討。"},
+{id:"zwei",name:"南部ツヴァイ協会6課[なんでも] ヴァンシュの人格",status:"draft",rank:"",aff:"南部ツヴァイ協会6課",base:"南部ツヴァイ協会6課フィクサーの人格",role:"味方を守る盾・サポーター／指揮官",hp:"普通",san:"高め",speed:"2d3くらい",resist:"斬撃：抵抗／貫通：弱点／打撃：普通",summary:"仲間を守りながら支援する、盾役中心の人格案。攻撃役としての性能は持たせず、味方を守ることを主眼に置く。",passive:"「あなたのハゲ」（草案）。発動条件：憂鬱x・怠惰x 保有（必要数未確定）。PCがハゲならR開始時に保護x・挑発値1を得て、受けるSANダメージをx軽減。マッチ可能守備ダイスでマッチ勝利時、両隣の味方に混乱保護を付与。",skills:"0「反撃の盾／反撃のハゲ」— 斬撃反撃：怠惰\n1「牽制斬り」— 斬撃：憂鬱\n2「応用斬防剣術」— 斬撃：怠惰\n3「注目を集めるハゲ頭」— 斬撃：憂鬱\n4「フロントライン・ガードマン」— マッチ可能防御：傲慢。効果量の一部は未確定。",notes:"最終仕様ではなく、会話上の草案として登録。"}];
+const notes0=[{id:"n1",title:"口調・台詞",status:"confirmed",body:"「……ヴァンシュだ。」\n「荒事は任せろ」\n「自らの行いを悔め。」\n短く荒めだが、下品ではない。"}, {id:"n2",title:"兄に関する真相",status:"confirmed",body:"ヴァンシュ本人は兄を殺したと思っているが、実際には兄が組織に従ってヴァンシュを傷つけた。兄は生存し、現在は組織の長。ヴァンシュは真相を知らず、記憶錯誤がある。"}, {id:"n3",title:"中指長兄人格：主題",status:"draft",body:"嫉妬、家族への執着、報復、歪んだ平等。自分が失ったのなら相手も失えという怨嗟と、もう家族を失いたくないという矛盾した執着。"}];
+let data;try{data=JSON.parse(localStorage.getItem("vanshuArchive")||"null")}catch(e){}if(!data)data={profile:profile0,identities:identities0,notes:notes0};let active=null;
+const esc=s=>String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));const statusName=s=>({confirmed:"確定済み",draft:"未完成案",unknown:"未記入"})[s]||"未記入";
+const SUPABASE_URL="https://nsmgwcetycfraqctvpwf.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY="sb_publishable_t_72uom16AIxpd0kx-_lvw_kd0XwrAC";
+const ADMIN_UID="1e061d27-f35f-4edf-a70e-3cf14c97876b";
+const sb=window.supabase?.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+let currentUser=null, cloudWriteQueue=Promise.resolve(), cloudHasData=false;
+function setCloudStatus(msg){const el=$("cloudStatus");if(el)el.textContent=msg;}
+function setEditingEnabled(on){["add","add2","editProfile","editIdentity","deleteIdentity","addNote","import"].forEach(id=>{const el=$(id);if(el)el.classList.toggle("hidden",!on)});document.querySelectorAll("[data-ne],[data-nd]").forEach(el=>el.classList.toggle("hidden",!on));$("logout").classList.toggle("hidden",!on);$("loginOpen").classList.toggle("hidden",on);}
+function save(){
+ try{localStorage.setItem("vanshuArchive",JSON.stringify(data));}catch(err){console.error(err);setCloudStatus("端末保存エラー");alert("端末内保存に失敗しました。JSONバックアップを確認してください。");return;}
+ if(!sb||!currentUser||currentUser.id!==ADMIN_UID){setCloudStatus("端末内のみ保存（未ログイン）");return;}
+ setCloudStatus("クラウド保存中…");const snapshot=JSON.parse(JSON.stringify(data));
+ cloudWriteQueue=cloudWriteQueue.then(async()=>{const {error}=await sb.from("site_data").upsert({id:1,data:snapshot},{onConflict:"id"});if(error)throw error;setCloudStatus("クラウド保存済み ✓");}).catch(err=>{console.error("Supabase save failed",err);setCloudStatus("クラウド保存失敗！JSONバックアップしてください");alert("クラウド保存に失敗しました。変更は端末にのみ残っている可能性があります。JSONバックアップを取り、SupabaseのAPI/RLS設定を確認してください。\n"+(err?.message||String(err)));});
+}
+async function refreshCloud(){if(!sb){setCloudStatus("Supabaseライブラリ読込失敗");return;}try{const {data:row,error}=await sb.from("site_data").select("id,data").eq("id",1).maybeSingle();if(error)throw error;if(row?.data&&row.data.profile&&Array.isArray(row.data.identities)){cloudHasData=true;data=row.data;localStorage.setItem("vanshuArchive",JSON.stringify(data));renderProfile();renderCards();renderNotes();setCloudStatus("クラウド読込済み");}else {cloudHasData=false;setCloudStatus("クラウド未登録（管理者ログイン後に保存）");}}catch(err){console.error(err);setCloudStatus("クラウド読込失敗（API/RLS確認）");}}
+async function updateAuthUI(){if(!sb)return;const {data:{user}}=await sb.auth.getUser();if(user&&user.id!==ADMIN_UID){await sb.auth.signOut();currentUser=null;setCloudStatus("編集権限のないアカウント");}else currentUser=user||null;setEditingEnabled(!!currentUser);if(currentUser){setCloudStatus("管理者ログイン済み");await refreshCloud();}else setCloudStatus("閲覧モード");}
+$("loginOpen").onclick=()=>{$("loginPanel").classList.remove("hidden");$("loginError").textContent=""};$("loginCancel").onclick=()=>$("loginPanel").classList.add("hidden");
+$("loginForm").onsubmit=async e=>{e.preventDefault();if(!sb){$("loginError").textContent="Supabaseライブラリを読み込めません。ネット接続を確認してください。";return;}$("loginError").textContent="ログイン中…";const {data:res,error}=await sb.auth.signInWithPassword({email:$("loginEmail").value.trim(),password:$("loginPassword").value});if(error){$("loginError").textContent="ログイン失敗："+error.message;return;}if(res.user?.id!==ADMIN_UID){await sb.auth.signOut();$("loginError").textContent="このアカウントには管理者権限がありません。";return;}currentUser=res.user;setEditingEnabled(true);$("loginPanel").classList.add("hidden");await refreshCloud();if(!cloudHasData){if(confirm("共有データがまだありません。この端末のデータをクラウドへ初回登録しますか？\n先にJSONバックアップを取っていることを確認してください。")){save();}}setCloudStatus(cloudHasData?"管理者ログイン済み":"初回登録待ち");};
+$("logout").onclick=async()=>{if(sb)await sb.auth.signOut();currentUser=null;setEditingEnabled(false);setCloudStatus("閲覧モード");};if(sb)sb.auth.onAuthStateChange((_e,session)=>{currentUser=session?.user?.id===ADMIN_UID?session.user:null;setEditingEnabled(!!currentUser);});
+function renderProfile(){let p=data.profile;$("profilePortrait").outerHTML=p.image?`<img id="profilePortrait" class="portrait" style="width:100%;height:110px;object-fit:cover;border-radius:50%" src="${p.image}" alt="ヴァンシュの立ち絵">`:`<div id="profilePortrait" class="sigil">蛇</div>`;$("pname").textContent=p.name;$("meta").textContent=`年齢：${p.age||"未記入"}　｜　PL：${p.pl||"未記入"}　｜　所属：${p.aff||"未記入"}　｜　原初：${p.origin||"未記入"}`;$("tags").innerHTML=`<span class="tag">裏路地出身</span><span class="tag">記憶錯誤</span><span class="tag">自己犠牲傾向</span><span class="tag">${esc(p.color)}</span>`;$("short").textContent=p.short;$("details").textContent=p.details;$("cautions").textContent=p.cautions}
+function view(v){["profile","identities","detail","notes"].forEach(x=>$(x).classList.toggle("hidden",x!==v));document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.view===v));if(v==="identities")renderCards();if(v==="notes")renderNotes();window.scrollTo(0,0)}document.querySelectorAll("[data-view]").forEach(b=>b.onclick=()=>view(b.dataset.view));
+function renderCards(){let q=$("q").value.toLowerCase(),st=$("sf").value,af=$("af").value;let affs=[...new Set(data.identities.map(x=>x.aff).filter(Boolean))];$("af").innerHTML='<option value="all">すべての所属</option>'+affs.map(a=>`<option>${esc(a)}</option>`).join("");$("af").value=affs.includes(af)?af:"all";let xs=data.identities.filter(x=>(st==="all"||x.status===st)&&(af==="all"||x.aff===af)&&[x.name,x.aff,x.role,x.summary,x.base,...(Array.isArray(x.keywords)?x.keywords:[])].join(" ").toLowerCase().includes(q));$("cards").innerHTML=xs.length?xs.map(x=>`<article class="card"><div class="stripe"></div><div class="cb">${x.image?`<img class="thumb" src="${x.image}" alt="${esc(x.name)}の立ち絵">`:`<div class="portraitbox" style="min-height:100px">立ち絵・画像未登録</div>`}<div><span class="status ${x.status}">${statusName(x.status)}</span> ${x.rank?`<span class="tag">ランク：${esc(x.rank)}</span>`:""}</div><h3>${esc(x.name)}</h3><div class="identity-keywords">${(Array.isArray(x.keywords)?x.keywords:[]).filter(Boolean).map(k=>`<span class="identity-keyword">${esc(k)}</span>`).join("")}</div><div class="muted">${esc(x.aff||"所属未記入")}</div><div class="desc">${esc(x.role||x.summary)}</div><div class="row"><small class="muted">${esc(x.base||"同期化元未記入")}</small><button data-open="${esc(x.id)}">詳細 →</button></div></div></article>`).join(""):'<div class="panel">該当する人格がありません。</div>';$("cards").querySelectorAll("[data-open]").forEach(b=>b.onclick=()=>detail(b.dataset.open))}
+["q","sf","af"].forEach(x=>$(x).addEventListener(x==="q"?"input":"change",renderCards));
+function splitSkillText(raw){
+  const result={};
+  if(!raw) return result;
+  const lines=String(raw).split(/\r?\n/); let current=null, loose=[];
+  const patterns=[
+    /^(?:スキル\s*(\d+(?:-\d+)?)|戦術\s*(\d+(?:-\d+)?))\s*[:：\-]?\s*(.*)$/i,
+    /^(?:スキル\s*)?(\d+(?:-\d+)?)\s*[「『【\[]([^」』】\]]*)[」』】\]]\s*(.*)$/,
+    /^(?:守備|防御|反撃|回避|防御スキル)\s*[:：\-]?\s*(.*)$/
+  ];
+  for(const line of lines){
+    const t=line.trim(); let m;
+    if(!t){if(current)result[current]+='\n';else loose.push(line);continue;}
+    m=t.match(patterns[0]);
+    if(m){current='スキル'+(m[1]||m[2]);if(!(current in result))result[current]='';if(m[3])result[current]+=(result[current]?'\n':'')+m[3];continue;}
+    m=t.match(patterns[1]);
+    if(m){current='スキル'+m[1];if(!(current in result))result[current]='';const body=(m[2]+(m[3]?' '+m[3]:'')).trim();result[current]+=(result[current]?'\n':'')+body;continue;}
+    m=t.match(patterns[2]);
+    if(m){current='守備';if(!(current in result))result[current]='';if(m[1])result[current]+=(result[current]?'\n':'')+m[1];continue;}
+    if(current)result[current]+=(result[current]?'\n':'')+line;else loose.push(line);
+  }
+  if(loose.join('\n').trim()) result['スキル1']=(loose.join('\n').trim()+'\n'+(result['スキル1']||'')).trim();
+  return result;
+}
+function resistanceData(x){
+  let vals={斬撃:"未記入",貫通:"未記入",打撃:"未記入"};
+  if(x.resistances) for(const k of Object.keys(vals)) if(x.resistances[k]) vals[k]=x.resistances[k];
+  if(!x.resistances && x.resist) x.resist.split(/[／\/\n,、]+/).forEach(part=>{
+    const m=part.match(/(斬撃|貫通|打撃)\s*[:：]\s*(弱点|普通|抵抗)/); if(m) vals[m[1]]=m[2];
+  });
+  return vals;
+}
+function detail(id){
+  active=id;let x=data.identities.find(a=>a.id===id);if(!x)return;
+  const skills=splitSkillText(x.skills), resist=resistanceData(x);
+  const allSkillKeys=Object.keys(skills).filter(k=>k==="守備"||/^スキル\d+(?:-\d+)?$/.test(k));
+  const baseNums=[...new Set(allSkillKeys.filter(k=>k!=="守備").map(k=>k.replace("スキル","").split("-")[0]))].sort((a,b)=>Number(a)-Number(b));
+  if(!baseNums.length) baseNums.push("1");
+  const skillKeys=[...baseNums.map(n=>"スキル"+n),...(allSkillKeys.includes("守備")?["守備"]:[])];
+  const fields=[["所属",x.aff],["同期化元",x.base],["役割・コンセプト",x.role],["HP",x.hp],["SAN",x.san],["速度",x.speed],["設定・背景",x.summary],["パッシブ",x.passive],["②パッシブ",x.passive2],["補足・未確定点",x.notes]];
+  const rv=Object.entries(resist).map(([k,v])=>`<div class="resist-item"><b>${k}</b><span class="resist-value ${v==="弱点"?"weak":v==="抵抗"?"resist":v==="普通"?"normal":"unknown"}">${esc(v)}</span></div>`).join("");
+  $("detailBody").dataset.identityId=x.id;
+  $("detailBody").innerHTML=`<div class="panel"><div class="k">IDENTITY FILE</div><span class="status ${x.status}">${statusName(x.status)}</span><h1>${esc(x.name)}</h1><div class="identity-keywords">${(Array.isArray(x.keywords)?x.keywords:[]).filter(Boolean).map(k=>`<span class="identity-keyword">${esc(k)}</span>`).join("")}</div>
+  <div class="identity-battle"><div class="identity-art">${x.image?`<img class="portrait" src="${x.image}" alt="${esc(x.name)}の立ち絵">`:`<div class="portraitbox">この人格の立ち絵・画像は未登録です</div>`}
+  <div class="resist-panel"><h3>耐性情報</h3><div class="resist-list">${rv}</div></div></div>
+  <div class="skill-view"><div class="skill-tabs">${skillKeys.map((s,i)=>`<button class="skill-tab ${i===0?"active":""}" data-skill="${s}">${s}</button>`).join("")}</div><div id="skillContent" class="skill-content"></div></div></div>
+  <div class="grid" style="margin-top:16px">${fields.filter(([l,v])=>l!=="②パッシブ"||String(v||"").trim()).map(([l,v])=>`<div class="field"><label>${l}</label>${esc(v||"未記入")}</div>`).join("")}</div></div>`;
+  const content=$("skillContent");
+  function variantsFor(base){return allSkillKeys.filter(k=>k.startsWith(base+"-")).sort((a,b)=>Number(a.split("-")[1])-Number(b.split("-")[1]));}
+  const currentSkillByBase={};
+  function showSkill(key){
+    const base=key.includes("-")?"スキル"+key.replace("スキル","").split("-")[0]:key;
+    currentSkillByBase[base]=key;
+    document.querySelectorAll("[data-skill]").forEach(b=>b.classList.toggle("active",b.dataset.skill===key));
+    const rawValue=(skills[key]||"").trim();
+    const meta=key==="守備"?parseDefenseBody(rawValue):parseSkillBody(rawValue);
+    const value=(meta.body||"").trim();
+    const badges=`<div class="skill-attr-badges"><span>${esc(key==="守備"?(meta.defenseType||"防御"):(meta.attack||"斬撃"))}</span><span>${esc(meta.sin||"憤怒")}</span>${key!=="守備"&&meta.areaType?`<span>${esc(meta.areaType)}${meta.areaCount?esc(meta.areaCount)+"枠":""}</span>`:""}</div>`;
+    const vars=key==="守備"?[]:variantsFor(base);
+    const variantButton=vars.length?`<button class="skill-swap" type="button" id="skillSwap">派生切替　→　${(vars[vars.indexOf(key)+1]||base).replace("スキル","")===base.replace("スキル","")?"基本":(vars[vars.indexOf(key)+1]||base).replace("スキル","")}</button>`:"";
+    content.innerHTML=`<div class="skill-heading"><h3>${key==="守備"?"守備":key}</h3>${variantButton}</div>${badges}${value?esc(value):'<span class="empty">この欄は未記入です。編集画面で内容を記入できます。</span>'}`;
+    const swap=$("skillSwap");if(swap)swap.onclick=()=>{const current=currentSkillByBase[base]||base;const idx=vars.indexOf(current);showSkill(idx<0?vars[0]:(vars[idx+1]||base));};
+  }
+  document.querySelectorAll("[data-skill]").forEach(b=>b.onclick=()=>showSkill(b.dataset.skill));
+  showSkill(skillKeys[0]||"スキル1");
+  // Important: actually switch from the list to the detail section.
+  view("detail");
+}
+$("back").onclick=()=>view("identities");window.currentIdentityImage="";
+function skillLabel(n){
+ const nums=["①","②","③","④","⑤","⑥","⑦","⑧","⑨","⑩"];
+ return nums[n-1]||String(n);
+}
+function parseSkillBody(text){
+ const lines=String(text||"").split(/\r?\n/);
+ const meta={attack:"斬撃",sin:"憤怒",areaType:"",areaCount:""};
+ const body=[];
+ for(const line of lines){
+   let m=line.match(/^【属性】\s*(斬撃|貫通|打撃)\s*[／/]\s*(憤怒|嫉妬|暴食|憂鬱|色欲|怠惰|傲慢)\s*$/);
+   if(m){meta.attack=m[1];meta.sin=m[2];continue;}
+   m=line.match(/^【広域】\s*(広域|広域乱射|衝撃広域)\s*(?:：|:)\s*(.*?)\s*$/);
+   if(m){meta.areaType=m[1];meta.areaCount=m[2]==="-"?"":m[2];continue;}
+   body.push(line);
+ }
+ meta.body=body.join("\n").replace(/^\n+|\n+$/g,"");
+ return meta;
+}
+function parseDefenseBody(text){
+ const lines=String(text||"").split(/\r?\n/);
+ const meta={defenseType:"防御",sin:"憤怒",body:[]};
+ for(const line of lines){
+   const m=line.match(/^【守備属性】\s*(防御|回避|反撃|マッチ可能防御|マッチ可能反撃)\s*[／/]\s*(憤怒|嫉妬|暴食|憂鬱|色欲|怠惰|傲慢)\s*$/);
+   if(m){meta.defenseType=m[1];meta.sin=m[2];continue;}
+   meta.body.push(line);
+ }
+ meta.body=meta.body.join("\n").replace(/^\n+|\n+$/g,"");
+ return meta;
+}
+function readSkillEditor(raw){
+ const parsed=splitSkillText(raw||"");
+ const groups={};
+ Object.entries(parsed).forEach(([key,value])=>{
+   if(key==="守備"){const parts=String(value||"").split("\n");const title=parts.shift()||"";const meta=parseDefenseBody(parts.join("\n"));groups.defense={title,body:meta.body,defenseType:meta.defenseType,sin:meta.sin,branches:[]};return;}
+   const m=key.match(/^スキル(\d+)(?:-(\d+))?$/); if(!m)return;
+   const n=Number(m[1]); groups[n] ||= {n,title:"",body:"",attack:"斬撃",sin:"憤怒",areaType:"",areaCount:"",branches:[]};
+   const parts=String(value||"").split("\n"); const title=parts.shift()||""; const parsedBody=parseSkillBody(parts.join("\n"));
+   if(m[2])groups[n].branches.push({num:Number(m[2]),title,body:parsedBody.body,attack:parsedBody.attack,sin:parsedBody.sin,areaType:parsedBody.areaType,areaCount:parsedBody.areaCount});
+   else {groups[n].title=title;Object.assign(groups[n],parsedBody);}
+ });
+ return groups;
+}
+function renderSkillEditor(raw){
+ const root=$("skillEditor"); if(!root)return;
+ const groups=readSkillEditor(raw);
+ let nums=Object.keys(groups).filter(k=>k!=="defense").map(Number).sort((a,b)=>a-b);
+ if(!nums.length)nums=[1,2,3,4];
+ nums.forEach(n=>groups[n] ||= {n,title:"",body:"",attack:"斬撃",sin:"憤怒",areaType:"",areaCount:"",branches:[]});
+ const cards=[];
+ const attackOptions=["斬撃","貫通","打撃"], sinOptions=["憤怒","嫉妬","暴食","憂鬱","色欲","怠惰","傲慢"], areaOptions=["広域","広域乱射","衝撃広域"];
+ const select=(attr,value,options,required=true)=>`<select ${attr} ${required?"required":""}>${options.map(v=>`<option value="${v}" ${v===value?"selected":""}>${v}</option>`).join("")}</select>`;
+ function metaFields(prefix,g){
+   const key=prefix===null?"":`${prefix}`;
+   const hasArea=!!g.areaType;
+   return `<div class="skill-meta-fields">
+     <label>攻撃属性（必須）${select(`data-meta-attack="${key}"`,g.attack||"斬撃",attackOptions)}</label>
+     <label>大罪属性（必須）${select(`data-meta-sin="${key}"`,g.sin||"憤怒",sinOptions)}</label>
+     <div class="area-editor">
+       <div class="area-editor-top"><strong>広域スキル</strong><button type="button" data-toggle-area="${key}">${hasArea?"広域設定を削除":"＋ 広域人数を追加"}</button></div>
+       <div class="area-editor-fields" data-area-fields="${key}" ${hasArea?"":"hidden"}>
+         <label>広域タイプ${select(`data-area-type="${key}"`,g.areaType||"広域",areaOptions,false)}</label>
+         <label>人数（任意）<input type="number" min="1" step="1" data-area-count="${key}" value="${esc(g.areaCount||"")}" placeholder="例：3"></label>
+       </div>
+     </div>
+   </div>`;
+ }
+ function card(n,g){
+   const branches=(g.branches||[]).sort((a,b)=>a.num-b.num).map((b)=>`
+     <div class="skill-branch"><div class="skill-edit-head"><strong>戦術${skillLabel(n)}-派生${b.num}</strong><button type="button" data-remove-branch="${n}:${b.num}">派生を削除</button></div>
+     <div class="skill-edit-fields"><input data-branch-title="${n}:${b.num}" placeholder="派生技名（任意）" value="${esc(b.title||"")}">${metaFields(`${n}:${b.num}`,b)}<textarea data-branch-body="${n}:${b.num}" placeholder="効果・説明">${esc(b.body||"")}</textarea></div></div>`).join("");
+   return `<section class="skill-edit-card"><div class="skill-edit-head"><strong>戦術${skillLabel(n)}（スキル${n}）</strong><div class="skill-edit-actions"><button type="button" data-add-branch="${n}">＋ 派生を作成</button><button type="button" data-remove-tactic="${n}">戦術を削除</button></div></div>
+   <div class="skill-edit-fields"><input data-skill-title="${n}" placeholder="戦術名（任意）" value="${esc(g.title||"")}">${metaFields(String(n),g)}<textarea data-skill-body="${n}" placeholder="効果・説明">${esc(g.body||"")}</textarea></div>${branches}</section>`;
+ }
+ nums.forEach(n=>cards.push(card(n,groups[n])));
+ const def=groups.defense||{title:"",body:"",defenseType:"防御",sin:"憤怒"};
+ const defenseOptions=["防御","回避","反撃","マッチ可能防御","マッチ可能反撃"];
+ cards.push(`<section class="skill-edit-card"><div class="skill-edit-head"><strong>守備</strong></div><div class="skill-edit-fields"><input data-defense-title placeholder="守備名（任意）" value="${esc(def.title||"")}"><div class="skill-meta-fields"><label>防御属性（必須）${select("data-defense-type",def.defenseType||"防御",defenseOptions)}</label><label>大罪属性（必須）${select("data-defense-sin",def.sin||"憤怒",sinOptions)}</label></div><textarea data-defense-body placeholder="守備の効果・説明">${esc(def.body||"")}</textarea></div></section>`);
+ root.innerHTML=cards.join("");
+ root.querySelectorAll("[data-add-branch]").forEach(btn=>btn.onclick=()=>{
+   const n=Number(btn.dataset.addBranch), rawNow=collectSkillEditor(), all=readSkillEditor(rawNow);
+   const g=all[n]||{n,title:"",body:"",attack:"斬撃",sin:"憤怒",branches:[]};
+   const next=Math.max(1,...g.branches.map(b=>b.num))+1;
+   g.branches.push({num:next,title:"",body:"",attack:"斬撃",sin:"憤怒",areaType:"",areaCount:""});
+   all[n]=g;renderSkillEditor(serializeSkillGroups(all));
+ });
+ root.querySelectorAll("[data-remove-tactic]").forEach(btn=>btn.onclick=()=>{
+   const n=Number(btn.dataset.removeTactic),all=readSkillEditor(collectSkillEditor());delete all[n];renderSkillEditor(serializeSkillGroups(all));
+ });
+ root.querySelectorAll("[data-remove-branch]").forEach(btn=>btn.onclick=()=>{
+   const [n,b]=btn.dataset.removeBranch.split(":").map(Number),all=readSkillEditor(collectSkillEditor());
+   if(all[n])all[n].branches=all[n].branches.filter(x=>x.num!==b);renderSkillEditor(serializeSkillGroups(all));
+ });
+ root.querySelectorAll("[data-toggle-area]").forEach(btn=>btn.onclick=()=>{
+   const key=btn.dataset.toggleArea, fields=root.querySelector(`[data-area-fields="${key}"]`);
+   const showing=fields && !fields.hidden;
+   if(fields)fields.hidden=showing;
+   btn.textContent=showing?"＋ 広域人数を追加":"広域設定を削除";
+   if(showing){const type=fields.querySelector("[data-area-type]");const count=fields.querySelector("[data-area-count]");if(type)type.value="広域";if(count)count.value="";}
+ });
+}
+function collectSkillEditor(){
+ const root=$("skillEditor"), groups={};
+ const getMeta=(key)=>({
+   attack:root.querySelector(`[data-meta-attack="${key}"]`)?.value||"斬撃",
+   sin:root.querySelector(`[data-meta-sin="${key}"]`)?.value||"憤怒",
+   areaType:(()=>{const fields=root.querySelector(`[data-area-fields="${key}"]`);return fields&&!fields.hidden?(fields.querySelector("[data-area-type]")?.value||"広域"):"";})(),
+   areaCount:(()=>{const fields=root.querySelector(`[data-area-fields="${key}"]`);return fields&&!fields.hidden?(fields.querySelector("[data-area-count]")?.value||""):"";})()
+ });
+ root.querySelectorAll("[data-skill-title]").forEach(el=>{const n=Number(el.dataset.skillTitle);groups[n]||={n,title:"",body:"",branches:[]};groups[n].title=el.value;Object.assign(groups[n],getMeta(String(n)));});
+ root.querySelectorAll("[data-skill-body]").forEach(el=>{const n=Number(el.dataset.skillBody);groups[n]||={n,title:"",body:"",branches:[]};groups[n].body=el.value;});
+ root.querySelectorAll("[data-branch-title]").forEach(el=>{const [n,b]=el.dataset.branchTitle.split(":").map(Number);groups[n]||={n,title:"",body:"",branches:[]};groups[n].branches.push({num:b,title:el.value,body:"",...getMeta(`${n}:${b}`)});});
+ root.querySelectorAll("[data-branch-body]").forEach(el=>{const [n,b]=el.dataset.branchBody.split(":").map(Number);groups[n]||={n,title:"",body:"",branches:[]};let x=groups[n].branches.find(v=>v.num===b);if(!x){x={num:b,title:"",body:"",...getMeta(`${n}:${b}`)};groups[n].branches.push(x)}x.body=el.value;});
+ groups.defense={title:root.querySelector("[data-defense-title]")?.value||"",body:root.querySelector("[data-defense-body]")?.value||"",defenseType:root.querySelector("[data-defense-type]")?.value||"防御",sin:root.querySelector("[data-defense-sin]")?.value||"憤怒"};
+ return serializeSkillGroups(groups);
+}
+function serializeSkillGroups(groups){
+ const out=[];
+ const addSkill=(key,g)=>{
+   out.push(`${key}：${g.title||""}`.trimEnd());
+   out.push(`【属性】${g.attack||"斬撃"}／${g.sin||"憤怒"}`);
+   if(g.areaType)out.push(`【広域】${g.areaType}：${g.areaCount||"-"}`);
+   if(g.body)out.push(g.body);
+ };
+ Object.keys(groups).filter(k=>k!=="defense").map(Number).sort((a,b)=>a-b).forEach(n=>{
+  const g=groups[n];addSkill(`スキル${n}`,g);
+  (g.branches||[]).sort((a,b)=>a.num-b.num).forEach(b=>addSkill(`スキル${n}-${b.num}`,b));
+ });
+ if(groups.defense){const d=groups.defense;out.push(`守備：${d.title||""}`.trimEnd());out.push(`【守備属性】${d.defenseType||"防御"}／${d.sin||"憤怒"}`);if(d.body)out.push(d.body);}
+ return out.join("\n");
+}
+function renderKeywordEditor(){const root=$("keywordList");if(!root)return;root.innerHTML=(window.identityKeywords||[]).map((k,i)=>`<span class="keyword-chip">${esc(k)}<button type="button" data-remove-keyword="${i}" aria-label="${esc(k)}を削除">×</button></span>`).join("");root.querySelectorAll("[data-remove-keyword]").forEach(b=>b.onclick=()=>{window.identityKeywords.splice(Number(b.dataset.removeKeyword),1);renderKeywordEditor();});}
+window.identityKeywords=[];$("addKeyword").onclick=()=>{const input=$("keywordInput"),value=input.value.trim();if(!value)return;if(!window.identityKeywords.includes(value))window.identityKeywords.push(value);input.value="";renderKeywordEditor();input.focus();};$("keywordInput").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();$("addKeyword").click();}});
+function formSet(x={}){window.currentIdentityImage=x.image||"";window.identityKeywords=Array.isArray(x.keywords)?x.keywords.filter(k=>typeof k==="string"&&k.trim()).map(k=>k.trim()):[];renderKeywordEditor();const rr=resistanceData(x);$("iresistSlash").value=rr["斬撃"]==="未記入"?"普通":rr["斬撃"];$("iresistPierce").value=rr["貫通"]==="未記入"?"普通":rr["貫通"];$("iresistBlunt").value=rr["打撃"]==="未記入"?"普通":rr["打撃"];let m={iid:"id",iname:"name",istatus:"status",irank:"rank",iaff:"aff",ibase:"base",irole:"role",ihp:"hp",isan:"san",ispeed:"speed",iresist:"resist",iimageFile:"image",isummary:"summary",ipassive:"passive",ipassive2:"passive2",inotes:"notes"};Object.entries(m).forEach(([a,b])=>{if(a!=="iimageFile")$(a).value=x[b]||""});$("iimagePreview").innerHTML=x.image?`<img class="thumb" src="${x.image}" alt="プレビュー">`:"";$("iimageFile").value="";renderSkillEditor(x.skills||"");$("imtitle").textContent=x.id?"人格を編集":"人格を追加";const dlg=$("im");dlg.classList.remove("hidden");dlg.removeAttribute("open");dlg.style.display="block";dlg.style.position="fixed";dlg.style.zIndex="2147483647";dlg.style.left="50%";dlg.style.top="4vh";dlg.style.right="auto";dlg.style.bottom="auto";dlg.style.transform="translateX(-50%)";dlg.style.margin="0";dlg.style.width="min(760px, calc(100% - 20px))";dlg.style.maxHeight="92vh";dlg.style.overflowY="auto";dlg.style.boxShadow="0 0 0 100vmax rgba(0,0,0,.78)";dlg.setAttribute("open","");document.body.style.overflow="hidden";window.scrollTo(0,0); }function formGet(){
+  const m={iid:"id",iname:"name",istatus:"status",irank:"rank",iaff:"aff",ibase:"base",irole:"role",ihp:"hp",isan:"san",ispeed:"speed",isummary:"summary",ipassive:"passive",ipassive2:"passive2",inotes:"notes"};
+  const x={};
+  Object.entries(m).forEach(([field,prop])=>{x[prop]=$(field).value.trim();});
+  x.skills=collectSkillEditor();
+  x.keywords=[...(window.identityKeywords||[])];
+  x.image=window.currentIdentityImage||"";
+  x.resistances={"斬撃":$("iresistSlash").value,"貫通":$("iresistPierce").value,"打撃":$("iresistBlunt").value};
+  x.resist=Object.entries(x.resistances).map(([k,v])=>`${k}：${v}`).join("／");
+  if(!x.id)x.id="id"+Date.now();
+  return x;
+}
+function add(){if(!currentUser){alert("編集には管理者ログインが必要です。");return;}formSet()}$("add").onclick=add;$("add2").onclick=add;$("imclose").onclick=()=>{const d=$("im");d.removeAttribute("open");d.style.display="none";d.style.position="";d.style.zIndex="";d.style.left="";d.style.top="";d.style.right="";d.style.bottom="";d.style.transform="";d.style.margin="";d.style.width="";d.style.maxHeight="";d.style.overflowY="";d.style.boxShadow="";document.body.style.overflow="";};$("addTactic").onclick=()=>{
+ const current=collectSkillEditor(), nums=Object.keys(readSkillEditor(current)).filter(k=>k!=="defense").map(Number);
+ const n=Math.max(0,...nums)+1;
+ const parsed=readSkillEditor(current);parsed[n]={n,title:"",body:"",branches:[]};
+ renderSkillEditor(serializeSkillGroups(parsed));
+};
+function commitIdentity(e){
+  if(!currentUser){alert("編集には管理者ログインが必要です。");return;}
+  if(e){e.preventDefault();e.stopPropagation();}
+  try{
+    const x=formGet();
+    if(!x.name){alert("人格名を入力してください。");$("iname").focus();return;}
+    const i=data.identities.findIndex(a=>String(a.id)===String(x.id));
+    if(i>=0)data.identities[i]=x;else data.identities.unshift(x);
+    save();
+    const d=$("im");d.removeAttribute("open");d.style.display="none";d.style.position="";d.style.zIndex="";d.style.left="";d.style.top="";d.style.right="";d.style.bottom="";d.style.transform="";d.style.margin="";d.style.width="";d.style.maxHeight="";d.style.overflowY="";d.style.boxShadow="";document.body.style.overflow="";
+    renderCards();if(active===x.id)detail(x.id);
+    alert(currentUser?"人格を保存しました。上部のクラウド同期状態を確認してください。":"端末内に保存しました。共有には管理者ログインが必要です。");
+  }catch(err){console.error("人格保存エラー",err);alert("保存処理でエラーが発生しました: "+(err?.message||String(err)));}
+}
+$("iform").onsubmit=commitIdentity;
+const saveIdentityButton=$("iform").querySelector('button[type="submit"]');
+if(saveIdentityButton){saveIdentityButton.type="button";saveIdentityButton.onclick=commitIdentity;}function openIdentityEditor(x){
+  // Fill the form first, then force the editor above the page even in browsers
+  // that do not implement native <dialog>. Keep the form usable in local previews.
+  window.currentIdentityImage=x.image||"";
+  const rr=resistanceData(x);
+  $("iresistSlash").value=rr["斬撃"]==="未記入"?"普通":rr["斬撃"];
+  $("iresistPierce").value=rr["貫通"]==="未記入"?"普通":rr["貫通"];
+  $("iresistBlunt").value=rr["打撃"]==="未記入"?"普通":rr["打撃"];
+  const m={iid:"id",iname:"name",istatus:"status",irank:"rank",iaff:"aff",ibase:"base",irole:"role",ihp:"hp",isan:"san",ispeed:"speed",isummary:"summary",ipassive:"passive",ipassive2:"passive2",inotes:"notes"};
+  Object.entries(m).forEach(([a,b])=>$(a).value=x[b]||"");
+  $("iimagePreview").innerHTML=x.image?`<img class="thumb" src="${x.image}" alt="プレビュー">`:"";
+  $("iimageFile").value="";
+  $("imtitle").textContent="人格を編集";
+  const dlg=$("im");
+  dlg.classList.remove("hidden");
+  dlg.setAttribute("open","");
+  dlg.style.display="block";
+  dlg.style.position="fixed";
+  dlg.style.zIndex="2147483647";
+  dlg.style.left="50%"; dlg.style.top="4vh"; dlg.style.right="auto"; dlg.style.bottom="auto";
+  dlg.style.transform="translateX(-50%)";
+  dlg.style.margin="0";
+  dlg.style.width="min(760px, calc(100% - 20px))";
+  dlg.style.maxHeight="92vh";
+  dlg.style.overflowY="auto";
+  dlg.style.boxShadow="0 0 0 100vmax rgba(0,0,0,.78)";
+  document.body.style.overflow="hidden";
+  window.scrollTo(0,0);
+}
+window.openCurrentIdentityEditor=function(){
+  const id=$("detailBody").dataset.identityId || active;
+  const x=(data.identities||[]).find(a=>String(a.id)===String(id));
+  if(!x){alert("編集する人格が見つかりません。一覧から人格を開き直してください。");return;}
+  openIdentityEditor(x);
+};
+$("editIdentity").onclick=function(e){
+  e.preventDefault();
+  try { window.openCurrentIdentityEditor(); }
+  catch(err){ console.error("人格編集エラー",err); alert("編集画面を開けませんでした: "+(err && err.message ? err.message : String(err))); }
+};
+$("deleteIdentity").onclick=()=>{if(!currentUser){alert("編集には管理者ログインが必要です。");return;}if(confirm("この人格を削除しますか？")){data.identities=data.identities.filter(a=>a.id!==active);save();view("identities")}};
+$("editProfile").onclick=()=>{if(!currentUser){alert("編集には管理者ログインが必要です。");return;}let p=data.profile,m={pn:"name",pa:"age",ppl:"pl",paf:"aff",po:"origin",pc:"color",ps:"short",pd:"details",px:"cautions"};Object.entries(m).forEach(([a,b])=>$(a).value=p[b]||"");$("pimagePreview").innerHTML=p.image?`<img class="thumb" src="${p.image}" alt="プレビュー">`:"";$("pimageFile").value="";$("pm").showModal()};$("pmclose").onclick=()=>$("pm").close();$("pform").onsubmit=e=>{e.preventDefault();if(!currentUser){alert("編集には管理者ログインが必要です。");return;}let m={pn:"name",pa:"age",ppl:"pl",paf:"aff",po:"origin",pc:"color",ps:"short",pd:"details",px:"cautions"};Object.entries(m).forEach(([a,b])=>data.profile[b]=$(a).value.trim());data.profile.image=window.currentProfileImage||data.profile.image||"";save();renderProfile();$("pm").close()};
+function renderNotes(){$("notesList").innerHTML=data.notes.map(n=>`<div class="panel"><div class="row"><strong>${esc(n.title)}</strong><span class="status ${n.status}">${statusName(n.status)}</span></div><p style="white-space:pre-wrap">${esc(n.body)}</p><div class="actions"><button data-ne="${n.id}">編集</button><button class="danger" data-nd="${n.id}">削除</button></div></div>`).join("")||'<div class="panel">メモはありません。</div>';$("notesList").querySelectorAll("[data-nd]").forEach(b=>b.onclick=()=>{if(!currentUser){alert("編集には管理者ログインが必要です。");return;}data.notes=data.notes.filter(n=>n.id!==b.dataset.nd);save();renderNotes()});$("notesList").querySelectorAll("[data-ne]").forEach(b=>b.onclick=()=>{if(!currentUser){alert("編集には管理者ログインが必要です。");return;}let n=data.notes.find(n=>n.id===b.dataset.ne),t=prompt("タイトル",n.title);if(t===null)return;let body=prompt("内容",n.body);if(body===null)return;n.title=t;n.body=body;save();renderNotes()})}
+$("addNote").onclick=()=>{if(!currentUser){alert("編集には管理者ログインが必要です。");return;}$("nt").value="";$("nb").value="";$("ns").value="draft";$("nm").showModal()};$("nmclose").onclick=()=>$("nm").close();$("nform").onsubmit=e=>{e.preventDefault();if(!currentUser){alert("編集には管理者ログインが必要です。");return;}data.notes.unshift({id:"n"+Date.now(),title:$("nt").value,body:$("nb").value,status:$("ns").value});save();$("nm").close();renderNotes()};
+$("export").onclick=()=>{let a=document.createElement("a"),u=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:"application/json"}));a.href=u;a.download="vanshu-archive.json";a.click();URL.revokeObjectURL(u)};
+$("import").onclick=()=>$("file").click();
+$("file").onchange=async e=>{
+  if(!currentUser){alert("JSON読み込みには管理者ログインが必要です。");e.target.value="";return;}
+  const file=e.target.files && e.target.files[0];
+  if(!file)return;
+  try{
+    const d=JSON.parse(await file.text());
+    if(!d.profile||!Array.isArray(d.identities))throw new Error("invalid archive");
+    data=d;save();renderProfile();renderCards();renderNotes();
+    alert("読み込みました");
+  }catch(err){alert("VANSHU ARCHIVEのJSONファイルを選んでください");}
+  e.target.value="";
+};
+
+function readImageFile(file, callback){
+ if(!file){callback("");return}
+ const reader=new FileReader();
+ reader.onload=()=>{const img=new Image();img.onload=()=>{const max=1200,scale=Math.min(1,max/Math.max(img.width,img.height));const c=document.createElement("canvas");c.width=Math.round(img.width*scale);c.height=Math.round(img.height*scale);c.getContext("2d").drawImage(img,0,0,c.width,c.height);callback(c.toDataURL("image/jpeg",0.82));};img.onerror=()=>callback(String(reader.result));img.src=reader.result;};
+ reader.readAsDataURL(file);
+}
+window.currentIdentityImage="";
+window.currentProfileImage="";
+$("iimageFile").addEventListener("change",e=>{const f=e.target.files[0];if(f)readImageFile(f,v=>{window.currentIdentityImage=v;$("iimagePreview").innerHTML=v?`<img class="thumb" src="${v}" alt="プレビュー">`:"";});});
+$("iimageClear").addEventListener("click",()=>{window.currentIdentityImage="";$("iimageFile").value="";$("iimagePreview").innerHTML="";});
+$("pimageFile").addEventListener("change",e=>{const f=e.target.files[0];if(f)readImageFile(f,v=>{window.currentProfileImage=v;$("pimagePreview").innerHTML=v?`<img class="thumb" src="${v}" alt="プレビュー">`:"";});});
+$("pimageClear").addEventListener("click",()=>{window.currentProfileImage="";data.profile.image="";$("pimageFile").value="";$("pimagePreview").innerHTML="";renderProfile();});
+
+
+
+try { renderProfile(); renderCards(); renderNotes(); setEditingEnabled(false); refreshCloud(); updateAuthUI(); }
+catch (err) { console.error("VANSHU ARCHIVE startup error:", err); document.body.insertAdjacentHTML("afterbegin", '<div style="padding:12px;background:#5b1f27;color:white">起動時エラーが発生しました。ブラウザのコンソールを確認してください。</div>'); }
+// fix17: 人格追加ボタンのイベントを最後に再設定し、表示処理の例外で無反応に見える問題を切り分ける
+(function(){
+  function forceIdentityDialog(){
+    const dlg=document.getElementById('im');
+    if(!dlg){alert('人格追加画面が見つかりません。ページを再読み込みしてください。');return;}
+    dlg.classList.remove('hidden');
+    dlg.style.cssText += ';display:block!important;position:fixed!important;z-index:2147483647!important;left:50%!important;top:4vh!important;right:auto!important;bottom:auto!important;transform:translateX(-50%)!important;margin:0!important;width:min(760px, calc(100% - 20px))!important;max-height:92vh!important;overflow-y:auto!important;background:#111827!important;color:#f5f0df!important;border:1px solid #b99b5b!important;padding:20px!important;box-shadow:0 0 0 100vmax rgba(0,0,0,.78)!important;';
+    dlg.setAttribute('open',''); document.body.style.overflow='hidden';
+  }
+  function openNewIdentity(e){
+    if(e){e.preventDefault();e.stopImmediatePropagation();}
+    try { if(typeof formSet==='function') formSet(); else forceIdentityDialog(); }
+    catch(err){ console.error('人格追加画面の表示エラー',err); forceIdentityDialog(); alert('追加画面の初期化中にエラーが発生しました。画面は表示しましたので、入力できるか確認してください。\n'+(err&&err.message?err.message:String(err))); }
+    forceIdentityDialog();
+    const title=document.getElementById('imtitle'); if(title)title.textContent='人格を追加';
+    const id=document.getElementById('iid'); if(id)id.value='';
+  }
+  ['add','add2'].forEach(id=>{const b=document.getElementById(id);if(b){b.addEventListener('click',openNewIdentity,true);}});
+})();
+</script>
+</body></html>
